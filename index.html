@@ -313,15 +313,14 @@ function hexToRgba(hex,a){hex=String(hex||'#000000').replace('#','');if(hex.leng
 function fontStack(font,lang){
   const clean=String(font||'Nunito').replace(/[;{}<>]/g,'').trim()||'Nunito';
   const quoted='\"'+clean.replaceAll('\"','')+'\"';
-  const byLang={
-    ja:'\"Noto Sans JP\", \"Noto Sans\", sans-serif',
-    zh:'\"Noto Sans SC\", \"Noto Sans\", sans-serif',
-    ko:'\"Noto Sans KR\", \"Noto Sans\", sans-serif',
-    latex:'\"Noto Sans\", \"Inter\", sans-serif'
+  const fallbackByLang={
+    ja:'\"Noto Sans JP\"',
+    zh:'\"Noto Sans SC\"',
+    ko:'\"Noto Sans KR\"',
+    latex:'\"Noto Sans\", \"Inter\"'
   };
-  if(byLang[lang]) return byLang[lang];
-  if(['Noto Sans JP','Noto Sans SC','Noto Sans KR','Noto Sans','Inter','Nunito','Baloo 2','Fredoka','Gabarito'].includes(clean)) return `${quoted}, \"Noto Sans\", Arial, sans-serif`;
-  return `${quoted}, \"Noto Sans\", Arial, sans-serif`;
+  const fallback=fallbackByLang[lang] ? fallbackByLang[lang]+', ' : '';
+  return `${quoted}, ${fallback}\"Noto Sans\", Arial, sans-serif`;
 }
 function cfg(){return{
   title:val('startTitle','Floating Bridge'),
