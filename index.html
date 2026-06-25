@@ -305,7 +305,7 @@ function toggleTaskMode(){
 }
 
 function byId(id){return document.getElementById(id)}
-function val(id,def=''){const el=byId(id);return el?el.value:def}
+function val(id,def=''){const el=byId(id);return el?el.value.replace(/['"]/g, '').trim():def}
 function num(id,def=0){const n=Number(val(id,def));return Number.isFinite(n)?n:def}
 function chk(id,def=false){const el=byId(id);return el?!!el.checked:def}
 
